@@ -1,11 +1,19 @@
 import math
 
-def sumaVector(v1, v2, r):
+def distancia(v1, v2, R):
 	r = []
 	for i in range(R):
 		r.append(0.0)
 	for i in range(0, R):
 		r[i] = v2[i] - v1[i]
+	return r
+
+def sumaVector(v1, v2, R):
+	r = []
+	for i in range(R):
+		r.append(0.0)
+	for i in range(R):
+		r[i] = v2[i] + v1[i]
 	return r
 
 n = int(input("Ingresa el número de cargas a evaluar: "))
@@ -28,7 +36,7 @@ for i in range(n):
 	for j in range(n):
 		if j==i:
 			continue
-		r[i].append(sumaVector(posiciones[i], posiciones[j], R))
+		r[i].append(distancia(posiciones[i], posiciones[j], R))
 
 print("vectores r", r)
 
@@ -61,4 +69,23 @@ for i in range(n):
 		for k in range(len(r[i][j])):
 			F[i][j].append(r[i][j][k]*(((K*qr[i][j])/(rn[i][j]**2))*(1/rn[i][j])))
 
-print("Fuerzas que ejerce cada carga F ", F)
+
+for i in range(n):
+	print(f"Fuerzas que ejerce la carga {i+1} ", F[i])
+
+Fn = []
+for i in range(n):
+	sum = []
+	for j in range(R):
+		sum.append(0.0)
+	for j in range(len(F)):
+		if i==j:
+			continue
+		elif i<j:
+			sum = sumaVector(sum, F[i][i], R)
+		else:
+			sum = sumaVector(sum, F[i][i-1], R)
+		Fn.append(sum)
+
+for i in range(n):
+	print(f"Fuerza neta en la carga {i+1}", Fn[i])
