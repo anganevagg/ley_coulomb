@@ -67,7 +67,7 @@ for i in range(n):
 	for j in range(len(r[i])):
 		F[i].append([])
 		for k in range(len(r[i][j])):
-			F[i][j].append(r[i][j][k]*(((K*qr[i][j])/(rn[i][j]**2))*(1/rn[i][j])))
+			F[i][j].append((-1)*(r[i][j][k]*(((K*qr[i][j])/(rn[i][j]**2))*(1/rn[i][j]))))
 
 
 for i in range(n):
